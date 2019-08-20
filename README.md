@@ -13,7 +13,7 @@ It has:
 </div>
 It was written in Visual Studio 2017 using ASP.NET Core 2.2.
 <div>
-<br>There are three access levels:
+<h3>There are three access levels:</h3>
 <ol>
 <li>Authorized person can browse through all library music charts. (No CRUD operations)</li>
 <li>Member can browse through all library music charts and look at the future and past performances. Can explore the concert program. Can see who played or is going to play and which part (or instrument) in an arrangement of the chart during the performance.
