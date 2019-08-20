@@ -1,5 +1,5 @@
 # Library
-BBLibrary is a test application for a Big Band.
+<h3>BBLibrary is a test application for a Big Band.</h3>
 <br>
 <div>
 It has:
