@@ -23,6 +23,20 @@ If the arrangement of the piece and the artists list has not been set by the App
 </div>
 In this application Identity was scaffolded and modified in a way that it is now required a confirmed email before login. So, if somebody wants to browse through the charts, they need to register first, then to login in their email account and click the link to confirm their email address.
 <p>
-<a href="https://user-images.githubusercontent.com/54305884/63379385-52c54600-c3e8-11e9-8c8d-c929d8a1b03a.png" target="_blank"rel="noopener noreferrer"></a>
+Only then they can login to the BBLibrary.
 </p>
-
+To use EmailSender service edit your email server settings in <code>appsettings.json</code>
+<p>If you are going to use Gmail you need to turn on Less Secure Apps permission in a Gmail account, otherwise all messages about confirmation of an email address will be blocked.
+</p>
+<h3>To run this application:</h3>
+<ul>
+  <li>Update your server settings in connection strings in the <code>appsettings.json</code> file. 
+If you are using Windows authentication and MSSQLLocalDB it is:<code>“Server=(localdb)\\mssqllocaldb”.</code> Nothing needs to be changed.
+If you are using MSSQL Server and using Server authentication, then it is:
+<p><code>“Server=<name of the server>; Database=BBLibraryApp;MultipleActiveResultSets=true User Id=your_username;password=your_password”</code></p>
+  <p>Make sure that the connection string written in one unbroken line.</p></li>
+  <strong>Then run these commands in the root: </strong>(in the folder where there is <code>BBLibraryApp.csproj</code> file)
+  <li><code>dotnet restore</code> (to restore all dependencies)</li>
+  <li><code>dotnet build</code></li>
+  <li><code>dotnet ef database update -c BBLibraryApp.Data.ApplicationDbContext</code> (to create identity database)</li>
+  <li><code>dotnet run</code> (to create library database, seed data to it, seed AppAdmin to the identity database and adding Administrator claim type to the AppAdmin user)</li>
