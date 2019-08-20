@@ -1,0 +1,44 @@
+﻿@model Instrument
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Instrument</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="InstrumentName" class="control-label"></label>
+                <input asp-for="InstrumentName" class="form-control" />
+                <span asp-validation-for="InstrumentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScoreOrder" class="control-label"></label>
+                <input asp-for="ScoreOrder" class="form-control" />
+                <span asp-validation-for="ScoreOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsInDefaultSet" /> @Html.DisplayNameFor(model => model.IsInDefaultSet)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-outline-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

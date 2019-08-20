@@ -1,0 +1,44 @@
+﻿@model Chart
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2 class="text-danger">Delete</h2>
+
+<h3>Are you sure you want to delete this Chart?</h3>
+<div>
+    <hr />
+    <dl class="table table-sm">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChartName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ChartName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Composer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Composer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Arranger)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Arranger)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

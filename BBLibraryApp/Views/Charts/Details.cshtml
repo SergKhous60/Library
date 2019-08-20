@@ -1,0 +1,95 @@
+﻿@inject IAuthorizationService AuthorizationService
+
+@model ChartDetailsData
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h2 class="text-info">@Model.Chart.ChartName</h2>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <table class="table table-bordered table-condensed table-striped table-sm">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Chart.Catalogue)
+            </th>
+            <td>
+                <strong class="text-secondary">@Html.DisplayFor(model => model.Chart.Catalogue)</strong>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Chart.Composer)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Chart.Composer)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Chart.Arranger)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Chart.Arranger)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Chart.Note)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Chart.Note)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Chart.RecordingUrl)
+            </th>
+            @if (Model.Chart.RecordingUrl != null)
+            {
+                <td>
+                    <audio controls>
+                        <source src="~/music/@($"{Model.Chart.RecordingUrl}.mp3")" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Chart.RecordingUrl)
+                </td>
+            }
+
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Chart.Length)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Chart.Length)
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h4>Instrumentation</h4>
+<table class="table table-bordered table-striped table-condensed table-sm">
+
+    @foreach (var item in Model.Instruments)
+    {
+        <tr>
+            <td>@item.InstrumentName</td>
+
+        </tr>
+    }
+
+</table>
+<div>
+    @if (User.Identity.IsAuthenticated && (await AuthorizationService.AuthorizeAsync(User, "AdministratorOnly")).Succeeded)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Chart.ID">Edit</a> @:|
+    }
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,47 @@
+﻿@model CartIndexViewModel
+
+@if (Model.Cart.ChartsPool.Count() != 0)
+{
+    <h2>Your Cart</h2>
+
+    <table class="table table-sm table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Catalogue</th>
+                <th>Title</th>
+                <th>Arranger</th>
+                <th>Time</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cart.ChartsPool)
+            {
+                <tr>
+                    <td>@item.Catalogue</td>
+                    <td>@item.ChartName</td>
+                    <td>@item.Arranger</td>
+                    <td>@item.Length</td>
+                    <td>
+                        <form asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="id" value="@item.ID" />
+                            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a class="btn btn-primary" href="@Model.ReturnUrl">Continue to choose Charts</a>
+        <a class="btn btn-danger" asp-controller="Cart" asp-action="ClearCart">Clear the Cart</a>
+    </div>
+}
+else
+{
+    <h2>Your Cart is empty.</h2>
+}

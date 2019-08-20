@@ -1,0 +1,65 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+<h2>Create</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <div id="PasswordUpperDivId" class="invalid password_requirement">At least one upper case letter.</div>
+                <div id="PasswordLowerDivId" class="invalid password_requirement">At least one lower case letter.</div>
+                <div id="PasswordDigitDivId" class="invalid password_requirement">At least one digit.</div>
+                <div id="PasswordSpecialDivId" class="invalid password_requirement">At least one special character.</div>
+                <div id="PasswordLengthDivId" class="invalid password_requirement mb-2">At least 8 characters long.</div>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="">
+                    Select User Role
+                </label>
+
+                    @foreach (var item in (SelectList)ViewBag.RoleId)
+                    {
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox"class="custom-control-input"id="@item.Value"name="SelectedRoles"value="@item.Value"/>
+                                <label class="custom-control-label"for="@item.Value">@item.Text</label>
+                            </div>
+                    }
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <input type="submit" class="btn btn-primary" value="Create" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/passwordRequirements.js"></script>
+}

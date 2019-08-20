@@ -1,0 +1,70 @@
+﻿@model ArtistsListInfo
+
+@{
+    ViewData["Title"] = "Create Artists List";
+}
+
+<div>
+    <h2 class="text-info">@Model.Chart.ChartName</h2>
+
+    <div asp-validation-summary="ModelOnly"></div>
+    <table class="table table-bordered table-condensed table-striped table-sm">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => @Model.Chart.Composer)
+            </th>
+            <td>
+                @Html.DisplayFor(model => @Model.Chart.Composer)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => @Model.Chart.Arranger)
+            </th>
+            <td>
+                @Html.DisplayFor(model => @Model.Chart.Arranger)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => @Model.Chart.Length)
+            </th>
+            <td>
+                @Html.DisplayFor(model => @Model.Chart.Length)
+            </td>
+        </tr>
+    </table>
+</div>
+
+<hr>
+<h4>Instrumentation</h4>
+<form asp-action="EditArtistsList" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" name="Id" value="@Model.Chart.ID" />
+    <input type="hidden" name="performanceId" value="@Model.PerformanceID" />
+
+    <table class="table table-bordered table-striped table-condensed table-sm">
+
+        @foreach (var item in @Model.InstrumentPeopleInfo.OrderBy(p => p.ScoreOrder))
+        {
+            <tr>
+                <td>@item.Instrument.InstrumentName</td>
+                <td>
+                    <select name="PersonID_@item.Instrument.ID" class="form-control"
+                            asp-items="@{new SelectList(Model.People,"ID","FullName",item.Person.ID)} ">
+                    </select>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-outline-primary" />
+    </div>
+</form>
+<div>
+    <a asp-action="EditArtistsList" asp-route-id="@Model.Chart.ID"
+       asp-route-performanceId="@Model.PerformanceID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+

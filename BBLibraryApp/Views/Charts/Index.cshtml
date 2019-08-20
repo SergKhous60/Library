@@ -1,0 +1,115 @@
+﻿@inject IAuthorizationService AuthorizationService
+@model PagedResult<Chart>
+
+@{
+    ViewData["Title"] = "Charts";
+}
+<div>
+    <h2>Charts</h2>
+</div>
+<div class="col-md-12 text-right">
+    <button type="button" class="btn btn-lg btn-info">
+        <strong>@MusicLength.TotalChartsLength(ViewBag.TotalSecs)</strong>
+    </button>
+</div>
+@if (User.Identity.IsAuthenticated && (await AuthorizationService.AuthorizeAsync(User, "AdministratorOnly")).Succeeded)
+{
+    <p>
+        <a asp-action="Create" asp-route-nextShelfNumber="@ViewBag.NextShelfNumber">Create New</a>
+    </p>
+}
+
+
+<form asp-action="Index" method="get" class="form-inline">
+    <div class="form-check bg-light p-0">
+        <p>
+            Find by Title, Arranger, Note or Catalogue: <input class="p-1" type="text" name="SearchString"
+                                                               placeholder="filter" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-secondary" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+@(await Component.InvokeAsync<PagerViewComponent>(Model))
+
+<table class="table table-sm table-bordered table-striped table-responsive-sm">
+    <thead>
+        <tr class="info">
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShelfNumber"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">Catalogue</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">Chart Name</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ArrangerSortParam"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">Arranger</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["Note"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">Note</a>
+            </th>
+            <th class="text-center">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["Time"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">Time</a>
+            </th>
+            @if (User.Identity.IsAuthenticated && (await AuthorizationService.AuthorizeAsync(User, "AdministratorOnly")).Succeeded)
+            {
+                <th></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+
+        <tr>
+            <td>
+                <strong class="text-monospace text-secondary">
+                    @Html.DisplayFor(model => item.Catalogue)
+                </strong>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ID">
+                    @Html.DisplayFor(modelItem => item.ShortChartName)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Arranger)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortNote)
+            </td>
+            <td class="text-center text-info">
+                <strong>@Html.DisplayFor(modelItem => item.Length)</strong>
+            </td>
+            @if (User.Identity.IsAuthenticated && (await AuthorizationService.AuthorizeAsync(User, "AdministratorOnly")).Succeeded)
+            {
+                <td class="text-center">
+
+                    <form id="@item.ID" asp-action="AddToCart"
+                          asp-controller="Cart" method="post">
+                        <input type="hidden" value="@item.ID"
+                               name="id" />
+                        <input type="hidden" name="returnUrl"
+                               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <a class="btn btn-sm btn-outline-primary" asp-action="Edit"
+                           asp-route-id="@item.ID">Edit</a>
+                        <a class=" btn btn-sm btn-outline-danger" asp-action="Delete"
+                           asp-route-id="@item.ID">Delete</a> 
+                        <button type="submit" class="btn btn-sm btn-outline-success">
+                            Add
+                        </button>
+                    </form>
+                </td>
+            }
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+@(await Component.InvokeAsync<PagerViewComponent>(Model))

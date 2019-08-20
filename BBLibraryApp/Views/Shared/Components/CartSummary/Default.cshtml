@@ -1,0 +1,17 @@
+﻿@model Cart
+
+<div class="">
+    @if (Model.ChartsPool.Count() > 0)
+    {
+        <small class="navbar-text text-info">
+            <b>Your cart:</b>
+            @Model.ChartsPool.Count() item(s)
+            @MusicLength.TotalChartsLength(Model.TotalChartsSecs)
+        </small>
+    }
+    <a class="btn btn-sm btn-outline-secondary"
+       asp-controller="Cart" asp-action="Index"
+       asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">
+        <i class="fa fa-briefcase" aria-hidden="true"></i>
+    </a>
+</div>

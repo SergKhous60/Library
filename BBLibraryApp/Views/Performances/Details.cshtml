@@ -1,0 +1,107 @@
+﻿@inject IAuthorizationService AuthorizationService
+
+@model PerformanceDetailsData
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+<div>
+    <div class="row">
+        <div class="col-md-8">
+            <button class="btn btn-lg btn-outline-primary">
+                <h4 class="">@Html.DisplayFor(model => model.Performance.Name)</h4>
+            </button>
+        </div>
+
+        <div class="col-md-4 text-right">
+            <button type="button" class="btn btn-lg btn-info">
+                <strong>
+                    @MusicLength.TotalChartsLength(Model.TotalSecs)
+                </strong>
+            </button>
+            @if (Model.Charts.Count != 0)
+            {
+                <a asp-action="printRepertoire" class="btn btn-lg btn-outline-secondary"
+                   asp-route-id="@Model.Performance.ID">
+                    Print
+                </a>
+            }
+
+        </div>
+    </div>
+    <hr />
+    <dl class="dl-horizontal small">
+        <dt>
+            @Html.DisplayNameFor(model => model.Performance.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Performance.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Performance.Venue.VenueName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Performance.Venue.VenueName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Performance.Comments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Performance.Comments)
+        </dd>
+    </dl>
+</div>
+<hr />
+
+@if (Model.Charts.Count != 0)
+{
+    <h4>Repertoire</h4>
+
+    <table class="table table-condensed table-bordered table-striped table-sm">
+        <thead>
+            <tr>
+                <th>N<small>o</small></th>
+                <th>Title</th>
+                <th>Arranger</th>
+                <th>Length</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Charts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChartListOrder)
+                </td>
+                <td>
+                    <a asp-action="ShowArtistsList" asp-route-id="@item.Chart.ID"
+                       asp-route-performanceID="@Model.Performance.ID">@Html.DisplayFor(modelItem => item.Chart.ChartName)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chart.Arranger)
+                </td>
+                <td class="text-info">
+                    <strong>@Html.DisplayFor(modelItem => item.Chart.Length)</strong>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<div>
+    @if (User.Identity.IsAuthenticated && (await AuthorizationService.AuthorizeAsync(User, "AdministratorOnly")).Succeeded)
+    {
+        <form asp-action="AddCharts" method="post">
+            <input type="hidden" name="id" value="@Model.Performance.ID" />
+            <button type="submit" class="btn btn-outline-success" btn-sm>Add Charts</button>
+            <a asp-action="Edit" asp-route-id="@Model.Performance.ID" class="btn btn-outline-info">Edit</a>
+            <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+        </form>
+    }
+    else
+    {
+        <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+    }
+</div>

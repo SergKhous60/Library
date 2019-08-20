@@ -1,0 +1,78 @@
+﻿@model Performance
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Performance</h4>
+<hr />
+<div class="row">
+    <div class="col-md-9">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comments" class="control-label"></label>
+                <input asp-for="Comments" class="form-control" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Venue.VenueName" class="control-label"></label>
+                <select asp-for="VenueID" class="form-control" asp-items="ViewBag.VenueID"></select>
+                <span asp-validation-for="VenueID" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="ID" />
+
+            <div class="form-group">
+                <label>Chart List</label>
+                <table class="table table-bordered table-condensed table-striped table-sm">
+                    @{
+                        List<ChartList> charts = ViewBag.PerformanceChartList;
+
+                        foreach (var chart in charts)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="number"
+                                           name="chartListOrder @chart.ChartID"
+                                           id="chartListOrder"
+                                           value="@chart.ListOrder"
+                                           class="form-control" />
+                                </td>
+                                <td>
+                                    <input type="checkbox"
+                                           name="selectedCharts"
+                                           value="@chart.ChartID"
+                                           checked="@chart.Assigned" />
+                                    @chart.Name
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,38 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "Details";
+}
+<h2 class="text-info">Details</h2>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="">
+        <dt>
+            User Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+    </dl>
+</div>
+<h4>List of roles for this user</h4>
+@if (ViewBag.Roles.Count == 0)
+{
+    <hr />
+    <p>No roles found for this user</p>
+}
+<table class="table">
+    @foreach (var item in ViewBag.Roles)
+    {
+        <tr>
+            <td>
+                @item
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>
+
