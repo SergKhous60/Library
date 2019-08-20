@@ -22,4 +22,5 @@ If the arrangement of the piece and the artists list has not been set by the App
 </ol>
 </div>
 In this application Identity was scaffolded and modified in a way that it is now required a confirmed email before login. So, if somebody wants to browse through the charts, they need to register first, then to login in their email account and click the link to confirm their email address.
+<a href="https://user-images.githubusercontent.com/54305884/63379385-52c54600-c3e8-11e9-8c8d-c929d8a1b03a.png" target="_blank"rel="noopener noreferrer"></a>
 
