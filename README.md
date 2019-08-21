@@ -33,10 +33,15 @@ To use EmailSender service edit your email server settings in <code>appsettings.
   <li>Update your server settings in connection strings in the <code>appsettings.json</code> file. 
 If you are using Windows authentication and MSSQLLocalDB it is:<code>“Server=(localdb)\\mssqllocaldb”.</code> Nothing needs to be changed.
 If you are using MSSQL Server and using Server authentication, then it is:
-<p><code>“Server=<name of the server>; Database=BBLibraryApp;MultipleActiveResultSets=true User Id=your_username;password=your_password”</code></p>
+<p><code>“Server=name_of_the_Server; Database=BBLibraryApp;MultipleActiveResultSets=true User Id=your_username;password=your_password”</code></p>
   <p>Make sure that the connection string written in one unbroken line.</p></li>
   <strong>Then run these commands in the root: </strong>(in the folder where there is <code>BBLibraryApp.csproj</code> file)
   <li><code>dotnet restore</code> (to restore all dependencies)</li>
   <li><code>dotnet build</code></li>
   <li><code>dotnet ef database update -c BBLibraryApp.Data.ApplicationDbContext</code> (to create identity database)</li>
-  <li><code>dotnet run</code> (to create library database, seed data to it, seed AppAdmin to the identity database and adding Administrator claim type to the AppAdmin user)</li>
+  <li><code>dotnet run</code> (to create library database, seed data to it, seed AppAdmin to the identity database and adding Administrator claim type to the AppAdmin user)</li></ul>
+  <li><p>Now you can go to: <code>https://localhost:44320/</code></p></li>
+  <ul>
+  <li>Login as <code>AppAdmin</code>,</li>
+  <li>Password: <code>P@ssw0rd</code></li>
+  </ul>
