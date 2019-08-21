@@ -40,7 +40,7 @@ If you are using MSSQL Server and using Server authentication, then it is:
   <li><code>dotnet build</code></li>
   <li><code>dotnet ef database update -c BBLibraryApp.Data.ApplicationDbContext</code> (to create identity database)</li>
   <li><code>dotnet run</code> (to create library database, seed data to it, seed AppAdmin to the identity database and adding Administrator claim type to the AppAdmin user)</li></ul>
-  <li><p>Now you can go to: <code>https://localhost:44320/</code></p></li>
+  <li>Now you can go to: <code>https://localhost:44320/</code></li>
   <ul>
   <li>Login as <code>AppAdmin</code>,</li>
   <li>Password: <code>P@ssw0rd</code></li>
