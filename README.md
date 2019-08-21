@@ -49,7 +49,7 @@ If you are using MSSQL Server and using Server authentication, then it is:
   In this application as an example a claims-based identity and a roles-based identity were used. In the <code>Startup.cs  services.AddAuthorization</code> with <code>AddPolicy</code> option was added. So, now we have two authorization policies: <code>AdministratorOnly</code> and <code>MembersOnly</code>.
   To satisfy the requirement for the <code>AdministratorOnly</code> policy you need to have an <code>AdministratorClaimType</code>, which is in our case a unique string:
   <p><code>const string AdministratorClaimType = "http://BBLibraryApp.com/claims/administrator";</code></p>
-  <p>To satisfy the requirement for the <code>MembersOnly</code> policy you have to be in a role of <code>"Member"</code>.
+  <p>To satisfy the requirement for the <code>MembersOnly</code> policy you have to be in a role of <code>Member</code>.
   This policy applies to <code>Index</code> and <code>Details</code> actions in the <code>Performances Controller</code>:
 
 <code>[Authorize(Policy ="MembersOnly")]</code>
