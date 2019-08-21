@@ -56,4 +56,16 @@ If you are using MSSQL Server and using Server authentication, then it is:
  
 As it has been mentioned before we seeded AppAdmin to the identity database and added Administrator claim type to it. So now, for AppAdmin to have access not only to the resources with the authorization policy for <code>AdministratorsOnly</code> but also to the resources with the authorization policy for <code>MemberOnly</code>, we need to add AppAdmin to the <code>Member</code> role.
 In this application AppAdmin has the ability to manage users and roles.</p>
+<p>Go to the <code>Admin>Roles</code> and create role - <code>Member</code>.</p>
+<p>Then go to <code>Admin>Users</code> and Edit AppAdmin user. Add him/her to <code>Member</code> role. Save changes.</p>
+<p>Now we can go to Charts list and add 4 charts (1,3,7,8) to the briefcase, which we are going to play in the next concert.
+You can see that every time we are adding chart to the briefcase there is the information about how many items we have and the total time. We use a session cart for this feature.</p>
+<p>Before you can go to the <code>Performances</code> and create one, you need to implement changes in your identity status. You have to logout and login again. Otherwise access will be denied.</p>
+<p>Because we have 4 charts in a briefcase, we can Click on the <code>Add Charts</code> button and attach these charts to the performance.</p>
+<p>Now we can Edit performance and add Chart List order for the Concert.</p>
+<p>After completing the program list, we can convert it to <code>pdf</code> format by clicking <code>Print</code> button.</p>
+<p>Now we navigate back to the details of the performance.</p>
+<p>By clicking the chart <code>Title</code> we can explore the instrumentation of the chart. If it was not set (it was not, as we seeded all charts without instrumentation) then we are redirected to the Edit section of the chart, where we can add all instruments used in the arrangement. <code>Check All</code> checkbox added all default instruments for the Big Band. Save the changes.</p>
+<p>So now, if we go back to the performance and click to the title of the chart, we can see instrumentation and on the right-side artists list. At the moment it has not been set yet. Go to the <code>Edit Artists List</code> and set it. Save the changes.</p>
+<p>Now we can keep track of all concerts we played, what was the program and who played it.</p>
 
